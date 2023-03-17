@@ -26,7 +26,8 @@ const FormSignIn = () => {
     }
   };
 
-  const authenticatePopUp = async () => {
+  const authenticatePopUp = async (event) => {
+    event.preventDefault();
     const { user } = await signInWithGooglePopup();
     // console.log(response);
     createUserDocumentFromAuth(user);
@@ -40,18 +41,19 @@ const FormSignIn = () => {
   };
 
   return (
-    <div className='sign-up-container'>
-      <h1>SIGN IN</h1>
+    <div className='sign-in-container'>
+      <h2>SIGN IN</h2>
       <span>Already have an account? sign in</span>
-      <div className='buttons-container'>
-        <form onSubmit={handleSubmit}>
-          <FormInput label='email' required type='email' name='email' value={email} onChange={updateForms} />
-          <FormInput label='password' required type='password' name='password' value={password} onChange={updateForms} />
-
-          <Button name='Sign in with email' />
-        </form>
-        <Button onClick={test} name='Sign in with Google' type='google' />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <FormInput label='email' required type='email' name='email' value={email} onChange={updateForms} />
+        <FormInput label='password' required type='password' name='password' value={password} onChange={updateForms} />
+        <div className='buttons-container'>
+          <Button>Sign In</Button>
+          <Button type='button' onClick={signInWithGooglePopup} buttontype='google'>
+            Google sign in
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };
