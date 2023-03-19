@@ -23,7 +23,7 @@ const FormSignIn = () => {
       const response = await signTheUserIn(email, password);
       if (response) {
         console.log(response.user);
-        setCurrentUser(response.user);
+        // setCurrentUser(response.user);
         createUserDocumentFromAuth(response.user);
       }
     } catch (err) {
