@@ -15,6 +15,8 @@ const FormSignIn = () => {
   const { email, password } = formFields;
   const { setCurrentUser } = useContext(UserContext);
 
+  const resetFormFields = (_) => setFormFields(defaultFormsDetails);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -26,6 +28,8 @@ const FormSignIn = () => {
       }
     } catch (err) {
       console.log("Error on sign in", err);
+    }finally{
+      resetFormFields();
     }
   };
 
