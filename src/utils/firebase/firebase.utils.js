@@ -26,11 +26,8 @@ export const signInWithFirebaseRedirect = () => signInWithRedirect(auth, provide
 const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (user, additionalInformation) => {
-  console.log(additionalInformation);
   const documentRef = doc(db, "users", user.uid);
-  console.log(documentRef);
   const snapshot = await getDoc(documentRef);
-  console.log(snapshot.exists());
 
   if (!snapshot.exists()) {
     // first time registry
