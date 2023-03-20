@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { trackAuthStateChange, signOutFromFireBase } from "../../utils/firebase/firebase.utils";
+import { trackAuthStateChange, createUserDocumentFromAuth, signOutFromFireBase } from "../../utils/firebase/firebase.utils";
 
 export const UserContext = createContext({
   currentUser: null,
@@ -11,10 +11,15 @@ export const UserProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser };
 
   useEffect(() => {
-    const unsubscribe = trackAuthStateChange((currentUser) => {
+    const unsubscribe = trackAuthStateChange((user) => {
       console.log("////\\\\");
-      console.log(currentUser);
+      console.log(user);
+      if (user) {
+        setCurrentUser(user);
+        createUserDocumentFromAuth(user);
+      }
     });
+    return unsubscribe;
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
