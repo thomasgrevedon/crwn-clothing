@@ -8,6 +8,7 @@ import App from "./App";
 import "./index.css";
 import { UserProvider } from "./components/contexts/user.context";
 import { ProductsProvider } from "./components/contexts/products.context";
+import { CartToggleProvider } from "./components/contexts/cart-toggle.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +16,9 @@ root.render(
     <React.StrictMode>
       <UserProvider>
         <ProductsProvider>
-          <App />
+          <CartToggleProvider>
+            <App />
+          </CartToggleProvider>
         </ProductsProvider>
       </UserProvider>
     </React.StrictMode>

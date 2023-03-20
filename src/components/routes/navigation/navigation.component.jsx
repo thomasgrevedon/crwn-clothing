@@ -1,6 +1,7 @@
 import { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
+import { CartToggleContext } from "../../contexts/cart-toggle.context";
 
 import "./navigation.styles.scss";
 import { signOutFromFireBase } from "../../../utils/firebase/firebase.utils";
@@ -11,6 +12,7 @@ import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { showDropDown } = useContext(CartToggleContext);
 
   const handleSignOut = async () => {
     await signOutFromFireBase();
@@ -38,7 +40,7 @@ const Navigation = () => {
           <CartIcon />
         </div>
       </div>
-      <CartDropdown></CartDropdown>
+      {showDropDown && <CartDropdown></CartDropdown>}
       <Outlet />
     </Fragment>
   );
