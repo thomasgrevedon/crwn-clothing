@@ -7,8 +7,10 @@ const ProductCard = ({ product }) => {
     <div className='product-card-container'>
       <img src={imageUrl} alt={`${name}`} />
       <Button buttontype='inverted'>Add to card</Button>
-      <span className='name'>{name}</span>
-      <span className='price'>{price}</span>
+      <div className='footer'>
+        <span className='name'>{name}</span>
+        <span className='price'>{price}</span>
+      </div>
     </div>
   );
 };
