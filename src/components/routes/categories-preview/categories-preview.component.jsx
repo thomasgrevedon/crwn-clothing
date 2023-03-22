@@ -1,4 +1,5 @@
 import { Fragment, useContext } from "react";
+import { Link } from "react-router-dom";
 import CategoryPreview from "../../category-preview/category-preview.component";
 import { CategoriesContext } from "../../contexts/categories.context";
 

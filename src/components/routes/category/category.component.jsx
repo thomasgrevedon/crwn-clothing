@@ -11,16 +11,18 @@ const Category = () => {
 
   useEffect(() => {
     setProducts(categories[category]);
-    console.log(categories[category]);
   }, [categories, category]);
 
   return (
-    <div className='category-container-specific'>
-      {products &&
-        products.map((product) => {
-          return <ProductCard key={product.id} product={product}></ProductCard>;
-        })}
-    </div>
+    <>
+      <h2 className='category-title'>{category.toUpperCase()}</h2>
+      <div className='category-container'>
+        {products &&
+          products.map((product) => {
+            return <ProductCard key={product.id} product={product}></ProductCard>;
+          })}
+      </div>
+    </>
   );
 };
 
