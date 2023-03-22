@@ -17,6 +17,11 @@ const computeTotalItems = (cartItems) => {
 };
 
 const removeQuantityByOne = (cartItems, item) => {
+  if (item.quantity === 1) {
+    return cartItems.filter((cartItem) => {
+      return cartItem.id !== item.id;
+    });
+  }
   return cartItems.map((cartItem) => {
     return cartItem.id === item.id && cartItem.quantity > 0 ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem;
   });
@@ -62,6 +67,9 @@ export const CartToggleProvider = ({ children }) => {
 
   useEffect(() => {
     setTotalItems(computeTotalItems(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
     setTotalPrice(computeTotalPrice(cartItems));
   }, [cartItems]);
 
