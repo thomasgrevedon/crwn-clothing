@@ -1,10 +1,11 @@
 import { useState, useContext } from "react";
 import { createNewUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
-import "./form-sign-up.styles.scss";
-import Button from "../button/button.component";
+import "./form-sign-up.styles.jsx";
+import Button, { BUTTON_TYPES } from "../button/button.component";
 
 import { UserContext } from "../contexts/user.context";
+import { SignUpContainer } from "./form-sign-up.styles.jsx";
 
 const defaultFormsDetails = {
   displayName: "",
@@ -43,7 +44,7 @@ const FormSignUp = () => {
   };
 
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>SIGN UP</h2>
       <span>Don't have an account? sign up</span>
       <form onSubmit={handleSubmit}>
@@ -53,7 +54,7 @@ const FormSignUp = () => {
         <FormInput label='confirm password' required type='password' name='confirmPassword' value={confirmPassword} onChange={updateForms} />
         <Button>Sign up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
