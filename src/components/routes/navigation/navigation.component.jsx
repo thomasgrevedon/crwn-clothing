@@ -1,7 +1,7 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useReducer } from "react";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
-import { CartToggleContext } from "../../contexts/cart-toggle.context";
+import { cartReducer, CartToggleContext, INITIAL_STATE } from "../../contexts/cart-toggle.context";
 
 import { LogoContainer, NavigationContainer, NavLink, NavLinkContainer } from "./navigation.styles.jsx";
 import { signOutFromFireBase } from "../../../utils/firebase/firebase.utils";
@@ -13,6 +13,7 @@ import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
   const { showDropDown } = useContext(CartToggleContext);
+  // const [{ showDropDown }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
   const handleSignOut = async () => {
     await signOutFromFireBase();

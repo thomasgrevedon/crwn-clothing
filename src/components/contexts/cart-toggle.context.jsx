@@ -1,4 +1,6 @@
-const { createContext, useState, useEffect } = require("react");
+import { createAction } from "../../utils/reduce/reduce";
+
+const { createContext, useState, useEffect, useReducer } = require("react");
 
 const addCartItem = (cartItems, productToAdd) => {
   const item = cartItems.find((cartItem) => cartItem.id === productToAdd.id);
@@ -55,34 +57,68 @@ export const CartToggleContext = createContext({
   totalPrice: 0,
 });
 
-export const CartToggleProvider = ({ children }) => {
-  const [showDropDown, setShowDropDown] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+export const INITIAL_STATE = {
+  showDropDown: false,
+  cartItems: [],
+  totalItems: 0,
+  totalPrice: 0,
+};
+const CART_ACTIONS = {
+  TOGGLE_DROP_DOWN: "TOGGLE_DROP_DOWN",
+  SET_CART_ITEMS: "SET_CART_ITEMS",
+};
 
-  const addItemToCart = (productToAdd) => {
-    setCartItems(addCartItem(cartItems, productToAdd));
+export const cartReducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case CART_ACTIONS.TOGGLE_DROP_DOWN:
+      return { ...state, showDropDown: payload };
+    case CART_ACTIONS.SET_CART_ITEMS:
+      return {
+        ...state,
+        ...payload,
+      };
+    default:
+      break;
+  }
+};
+export const CartToggleProvider = ({ children }) => {
+  const [{ showDropDown, cartItems, totalItems, totalPrice }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+
+  const updateCartItemsReducer = (newCartItems) => {
+    const newTotal = computeTotalItems(newCartItems);
+    const newTotalPrcie = computeTotalPrice(newCartItems);
+    const payload = {
+      cartItems: newCartItems,
+      totalItems: newTotal,
+      totalPrice: newTotalPrcie,
+    };
+    dispatch(createAction(CART_ACTIONS.SET_CART_ITEMS, payload));
   };
 
-  useEffect(() => {
-    setTotalItems(computeTotalItems(cartItems));
-  }, [cartItems]);
+  const setShowDropDown = () => {
+    const payload = !showDropDown;
+    dispatch(createAction(CART_ACTIONS.TOGGLE_DROP_DOWN, payload));
+  };
 
-  useEffect(() => {
-    setTotalPrice(computeTotalPrice(cartItems));
-  }, [cartItems]);
+  const addItemToCart = (productToAdd) => {
+    const newCartItems = addCartItem(cartItems, productToAdd);
+    updateCartItemsReducer(newCartItems);
+  };
 
   const removeOneQantity = (item) => {
-    setCartItems(removeQuantityByOne(cartItems, item));
+    const newCartItems = removeQuantityByOne(cartItems, item);
+    updateCartItemsReducer(newCartItems);
   };
 
   const addOneQantity = (item) => {
-    setCartItems(addQuantityByOne(cartItems, item));
+    const newCartItems = addQuantityByOne(cartItems, item);
+    updateCartItemsReducer(newCartItems);
   };
 
   const deleteItem = (item) => {
-    setCartItems(deleteItemFromCart(cartItems, item));
+    const newCartItems = deleteItemFromCart(cartItems, item);
+    updateCartItemsReducer(newCartItems);
   };
 
   const value = { showDropDown, setShowDropDown, cartItems, addItemToCart, totalItems, removeOneQantity, addOneQantity, deleteItem, totalPrice };
