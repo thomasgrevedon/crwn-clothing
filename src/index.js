@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import App from "./App";
 
@@ -9,18 +10,19 @@ import "./index.css";
 import { UserProvider } from "./components/contexts/user.context";
 import { CategoriesProvider } from "./components/contexts/categories.context";
 import { CartToggleProvider } from "./components/contexts/cart-toggle.context";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <UserProvider>
+      <Provider store={store}>
         <CategoriesProvider>
           <CartToggleProvider>
             <App />
           </CartToggleProvider>
         </CategoriesProvider>
-      </UserProvider>
+      </Provider>
     </React.StrictMode>
   </BrowserRouter>
 );
