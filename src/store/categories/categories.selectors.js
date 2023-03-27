@@ -4,6 +4,8 @@ const rootCategoriesSelector = (state) => {
   return state.categories;
 };
 
+export const categoriesIsLoadingSelector = createSelector([rootCategoriesSelector], (categorySlice) => categorySlice.isLoading);
+
 const categoriesSelector = createSelector([rootCategoriesSelector], (rootCategoriesSelector) => {
   return rootCategoriesSelector.categoriesArray;
 });
