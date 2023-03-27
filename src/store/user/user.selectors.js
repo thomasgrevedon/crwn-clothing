@@ -1,1 +1,1 @@
-export const currenUserSelector = (store) => store.user.currentUser;
+export const currentUserSelector = (store) => store.user.currentUser;

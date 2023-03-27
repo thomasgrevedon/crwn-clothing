@@ -25,7 +25,6 @@ export const UserProvider = ({ children }) => {
     const { type, payload } = action;
     switch (type) {
       case POSSIBLE_ACTIONS.SET_CURRENT_USER:
-        console.log(state);
         return { ...state, currentUser: payload };
       default:
         break;

@@ -6,9 +6,10 @@ import Authentication from "./components/routes/authentication/authentication.co
 import Shop from "./components/routes/shop/shop.component";
 import CheckoutPage from "./components/checkout-page/checkout-page.component";
 import { useEffect } from "react";
-import { createUserDocumentFromAuth, trackAuthStateChange } from "./utils/firebase/firebase.utils";
+import { createUserDocumentFromAuth, getCategoriesAndDocuments, trackAuthStateChange } from "./utils/firebase/firebase.utils";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./store/user/user.action";
+import { setCategoriesArray } from "./store/categories/categories.actions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,13 @@ const App = () => {
       }
     });
     return unsubscribe;
+  }, [dispatch]);
+
+  useEffect(() => {
+    (async () => {
+      const categoriesArray = await getCategoriesAndDocuments();
+      dispatch(setCategoriesArray(categoriesArray));
+    })();
   }, [dispatch]);
 
   return (

@@ -10,12 +10,12 @@ import { signOutFromFireBase } from "../../../utils/firebase/firebase.utils";
 import { ReactComponent as Crwn } from "../../../assets/crown.svg";
 import CartIcon from "../../cart-icon/cart-icon.component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
-import { currenUserSelector } from "../../../store/user/user.selectors";
+import { currentUserSelector } from "../../../store/user/user.selectors";
 
 const Navigation = () => {
   const { showDropDown } = useContext(CartToggleContext);
   // const [{ showDropDown }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
-  const currentUser = useSelector(currenUserSelector);
+  const currentUser = useSelector(currentUserSelector);
   const handleSignOut = async () => {
     await signOutFromFireBase();
   };
