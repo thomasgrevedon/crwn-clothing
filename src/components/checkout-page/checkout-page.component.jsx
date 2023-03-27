@@ -1,16 +1,19 @@
-import { useContext, useEffect } from "react";
-import Button from "../button/button.component";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDropDown } from "../../store/cart/cart.actions";
+import { cartItemsSelector, totalPriceSelector } from "../../store/cart/cart.selector";
 import CheckoutItem from "../checkout-item/checkout-item.component";
-import { CartToggleContext } from "../contexts/cart-toggle.context";
 import "./checkout-page.styles.jsx";
 import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from "./checkout-page.styles.jsx";
 
 const CheckoutPage = () => {
-  const { setShowDropDown, cartItems, removeOneQantity, totalPrice } = useContext(CartToggleContext);
+  const cartItems = useSelector(cartItemsSelector);
+  const totalPrice = useSelector(totalPriceSelector);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    setShowDropDown(false);
-  }, []);
+    dispatch(toggleDropDown(false));
+  }, [dispatch]);
 
   return (
     <CheckoutContainer>

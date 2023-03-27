@@ -1,7 +1,6 @@
 import { CategoriesContainer } from "./directory.styles";
 import React from "react";
 import CategoryContainer from "../directory-container/directory-container.component";
-import { Link } from "react-router-dom";
 
 const categories = [
   {

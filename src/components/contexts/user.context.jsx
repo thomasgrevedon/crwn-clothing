@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect, useReducer } from "react";
-import { trackAuthStateChange, createUserDocumentFromAuth, signOutFromFireBase } from "../../utils/firebase/firebase.utils";
+import { createContext, useEffect, useReducer } from "react";
+import { trackAuthStateChange, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 
 export const UserContext = createContext({
   currentUser: null,

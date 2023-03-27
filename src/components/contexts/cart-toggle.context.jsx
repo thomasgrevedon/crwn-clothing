@@ -1,6 +1,6 @@
 import { createAction } from "../../utils/reduce/reduce";
 
-const { createContext, useState, useEffect, useReducer } = require("react");
+const { createContext, useReducer } = require("react");
 
 const addCartItem = (cartItems, productToAdd) => {
   const item = cartItems.find((cartItem) => cartItem.id === productToAdd.id);

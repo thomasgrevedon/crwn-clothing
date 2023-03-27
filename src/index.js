@@ -7,9 +7,6 @@ import { Provider } from "react-redux";
 import App from "./App";
 
 import "./index.css";
-import { UserProvider } from "./components/contexts/user.context";
-import { CategoriesProvider } from "./components/contexts/categories.context";
-import { CartToggleProvider } from "./components/contexts/cart-toggle.context";
 import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,9 +14,7 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
-        <CartToggleProvider>
-          <App />
-        </CartToggleProvider>
+        <App />
       </Provider>
     </React.StrictMode>
   </BrowserRouter>

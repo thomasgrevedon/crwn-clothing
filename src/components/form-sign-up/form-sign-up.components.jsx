@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { createNewUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import "./form-sign-up.styles.jsx";
-import Button, { BUTTON_TYPES } from "../button/button.component";
+import Button from "../button/button.component";
 
 import { UserContext } from "../contexts/user.context";
 import { SignUpContainer } from "./form-sign-up.styles.jsx";
@@ -28,7 +28,7 @@ const FormSignUp = () => {
     if (createdUser) {
       setCurrentUser(UserContext);
       try {
-        const documentRef = await createUserDocumentFromAuth(createdUser.user, { displayName });
+        await createUserDocumentFromAuth(createdUser.user, { displayName });
         setFormFields(defaultFormsDetails);
       } catch (err) {
         console.log("Error on creating user", err);

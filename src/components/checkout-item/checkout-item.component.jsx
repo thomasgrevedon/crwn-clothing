@@ -1,21 +1,23 @@
-import { useContext } from "react";
-import { CartToggleContext } from "../contexts/cart-toggle.context";
+import { useDispatch, useSelector } from "react-redux";
+import { addOneQantity, deleteItem, removeOneQantity } from "../../store/cart/cart.actions";
+import { cartItemsSelector } from "../../store/cart/cart.selector";
 import "./checkout-item.styles.jsx";
 import { Arrow, CheckoutItemContainer, ImageContainer, Img, Name, Price, Quantity, RemoveButton, ValueField } from "./checkout-item.styles.jsx";
 const CheckoutItem = ({ cartItem }) => {
   const { imageUrl, name, quantity, price } = cartItem;
-  const { removeOneQantity, addOneQantity, deleteItem } = useContext(CartToggleContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(cartItemsSelector);
 
   const handleRemovingQuanity = () => {
-    removeOneQantity(cartItem);
+    dispatch(removeOneQantity(cartItems, cartItem));
   };
 
   const handleaddingQuanity = () => {
-    addOneQantity(cartItem);
+    dispatch(addOneQantity(cartItems, cartItem));
   };
 
   const handleDeleteItem = () => {
-    deleteItem(cartItem);
+    dispatch(deleteItem(cartItems, cartItem));
   };
 
   return (
