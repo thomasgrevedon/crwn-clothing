@@ -65,7 +65,7 @@ export const createUserDocumentFromAuth = async (user, additionalInformation) =>
     }
   }
 
-  return documentRef;
+  return snapshot;
 };
 
 export const createNewUserWithEmailAndPassword = async (email, password) => {
@@ -81,3 +81,18 @@ export const signTheUserIn = async (email, password) => {
 export const signOutFromFireBase = async () => await signOut(auth);
 
 export const trackAuthStateChange = (callback) => onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsuscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          unsuscribe();
+          resolve(user);
+        }
+      },
+      reject
+    );
+  });
+};

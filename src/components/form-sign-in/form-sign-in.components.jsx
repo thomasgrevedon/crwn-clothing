@@ -4,6 +4,8 @@ import FormInput from "../form-input/form-input.component";
 import "./form-sign-in.styles.jsx";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import { ButtonContainer, SignInContainer } from "./form-sign-in.styles.jsx";
+import { useDispatch } from "react-redux";
+import { signingInWitgGoogle, signingInWithEmailAndPassword, signInWithEmail } from "../../store/user/user.action";
 
 const defaultFormsDetails = {
   email: "",
@@ -13,23 +15,19 @@ const defaultFormsDetails = {
 const FormSignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormsDetails);
   const { email, password } = formFields;
+  const dispatch = useDispatch();
 
   const resetFormFields = (_) => setFormFields(defaultFormsDetails);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      await signTheUserIn(email, password);
-    } catch (err) {
-      console.log("Error on sign in", err);
-    } finally {
-      resetFormFields();
-    }
+    dispatch(signingInWithEmailAndPassword(email, password));
+    resetFormFields();
   };
 
-  const authenticatePopUp = async (event) => {
+  const authenticatePopUp = (event) => {
     event.preventDefault();
-    await signInWithGooglePopup();
+    dispatch(signingInWitgGoogle());
   };
 
   const updateForms = (event) => {

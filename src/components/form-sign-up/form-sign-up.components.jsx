@@ -6,6 +6,8 @@ import Button from "../button/button.component";
 
 import { UserContext } from "../contexts/user.context";
 import { SignUpContainer } from "./form-sign-up.styles.jsx";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/user/user.action";
 
 const defaultFormsDetails = {
   displayName: "",
@@ -18,24 +20,16 @@ const FormSignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormsDetails);
   const { displayName, email, password, confirmPassword } = formFields;
   const { setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const resetFormFields = (_) => setFormFields(defaultFormsDetails);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) return;
-    const createdUser = await createNewUserWithEmailAndPassword(email, password);
-    if (createdUser) {
-      setCurrentUser(UserContext);
-      try {
-        await createUserDocumentFromAuth(createdUser.user, { displayName });
-        setFormFields(defaultFormsDetails);
-      } catch (err) {
-        console.log("Error on creating user", err);
-      } finally {
-        resetFormFields();
-      }
-    }
+    dispatch(signUp(email, password, displayName));
+    setFormFields(defaultFormsDetails);
+    resetFormFields();
   };
 
   const updateForms = (event) => {

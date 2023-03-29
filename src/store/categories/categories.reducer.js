@@ -8,8 +8,6 @@ const INITIAL_STATE = {
 
 export const categoriesReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
-  console.log("///////////////");
-  console.log(state);
   switch (type) {
     case POSSIBLE_ACTIONS.SET_CATEGORIES_START:
       return { ...state, isLoading: true };
